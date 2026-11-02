@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Ghanashyam Mandal · Clean Air Engineer">
+<meta property="og:description" content="Carbon capture research, fixing pollution at the source, and how I work. An interactive portfolio.">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Ghanashyam Mandal · Clean Air Engineer</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Ghanashyam Mandal, Chemical Engineering, IIT Madras: carbon capture research, fixing pollution at the source, and work others can build on.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;500;700&family=Public+Sans:wght@400;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: fixed left contents rail (top chip bar on phones) + one section shown at a time, with Back/Next.
+   Signature element: a live amine capture plant (absorber → stripper loop → storage). */
+:root{
+  --bg:#f4f7f5; --surface:#ffffff; --ink:#132320; --muted:#566a64; --line:#d5e1dc;
+  --leaf:#1d8656; --leaf-soft:#dcf0e5; --water:#2f7fc4; --water-soft:#e1edf8; --rich:#7d5fc4; --heat:#d9822b; --soot:#7a7f82;
+  --rail:#0c1a18; --rail-2:#132824; --rail-ink:#e8f1ed; --rail-muted:#9fb6ae; --mint:#7fe0ad;
+  --display:"Archivo", "Segoe UI", system-ui, sans-serif;
+  --body:"Public Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1816; --surface:#16231f; --ink:#e3ece8; --muted:#9ab0a8; --line:#283a34;
+  --leaf:#4cc28a; --leaf-soft:#173328; --water:#6cb0ea; --water-soft:#152a3b; --rich:#a58ae6; --heat:#eda35a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1816; --surface:#16231f; --ink:#e3ece8; --muted:#9ab0a8; --line:#283a34;
+  --leaf:#4cc28a; --leaf-soft:#173328; --water:#6cb0ea; --water-soft:#152a3b; --rich:#a58ae6; --heat:#eda35a; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font:17px/1.6 var(--body)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:20;background:var(--rail)}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.12}
+p{margin:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--leaf);outline-offset:3px}
+.eyebrow{font:500 12px/1.2 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--leaf)}
+
+.app{display:grid;grid-template-columns:290px minmax(0,1fr);min-height:100%}
+
+/* RAIL */
+.rail{background:var(--rail);color:var(--rail-ink);position:sticky;top:env(safe-area-inset-top,0px);height:calc(100vh - env(safe-area-inset-top,0px));display:flex;flex-direction:column;gap:24px;padding:28px 22px 22px max(22px,env(safe-area-inset-left,0px));overflow-y:auto}
+.me{display:grid;gap:6px}
+.me .name{font:700 22px/1.15 var(--display)}
+.me .role{font-size:14px;color:var(--rail-muted)}
+.me .for{font:500 11px/1.4 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mint);margin-top:6px}
+.toc{display:grid;gap:2px}
+.toc button{display:grid;grid-template-columns:26px minmax(0,1fr);align-items:baseline;gap:6px;text-align:left;background:none;border:0;border-left:2px solid transparent;padding:9px 10px;cursor:pointer;color:var(--rail-muted);font-size:15px}
+.toc button .n{font:500 12px var(--mono);color:#56786e}
+.toc button:hover{color:var(--rail-ink)}
+.toc button[aria-current="true"]{color:var(--rail-ink);border-left-color:var(--mint);background:var(--rail-2)}
+.toc button[aria-current="true"] .n{color:var(--mint)}
+.railfoot{margin-top:auto;display:grid;gap:10px;font-size:14px}
+.railfoot .mail{font:500 13px var(--mono);color:var(--rail-ink);user-select:all;word-break:break-all}
+.railfoot .row{display:flex;gap:8px;flex-wrap:wrap}
+.chip{background:#1a3530;border:1px solid #2c4d45;color:var(--rail-ink);padding:7px 11px;cursor:pointer;font-size:13px;text-decoration:none}
+.chip:hover{border-color:var(--mint)}
+.copied{font-size:12px;color:var(--rail-muted);min-height:1em}
+
+/* MAIN */
+main{min-width:0;padding-block:44px 40px;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+.sec{max-width:980px;display:grid;gap:26px}
+.sec > header{display:grid;gap:10px;max-width:680px}
+.sec h1{font-weight:300;font-size:clamp(30px,3.6vw,46px);letter-spacing:-.01em}
+.sec h1 b{font-weight:700;color:var(--leaf)}
+.sec h2{font-weight:500;font-size:clamp(26px,3.2vw,38px)}
+.lede{font-size:18px;color:var(--muted);max-width:62ch}
+.pager{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:18px;margin-top:8px;max-width:980px}
+.pager button{background:none;border:1px solid var(--line);padding:10px 16px;cursor:pointer;font-weight:600;display:inline-flex;gap:8px;align-items:center}
+.pager button:hover{border-color:var(--leaf);color:var(--leaf)}
+.pager .next{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.pager .next:hover{color:#fff;filter:brightness(1.08)}
+.src-note{font-size:13px;color:var(--muted)}
+.src-note a{color:var(--leaf)}
+
+/* PLANT */
+.plant{background:var(--rail);border:1px solid #23413a;color:var(--rail-ink);max-width:760px;width:100%}
+.plant canvas{display:block;width:100%;height:auto;aspect-ratio:1000/600}
+.plant .bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;padding:12px;border-top:1px solid #23413a}
+.switch{display:inline-flex;align-items:center;gap:10px;background:none;border:1px solid #3a5d54;color:var(--rail-ink);padding:8px 12px;cursor:pointer;font-weight:600;font-size:14px}
+.switch .dot{width:10px;height:10px;border-radius:50%;background:#2fa36b;box-shadow:0 0 10px #2fa36b}
+.switch[aria-pressed="false"] .dot{background:#8b8f92;box-shadow:none}
+.meter{font:500 13px var(--mono);color:var(--rail-muted)}
+.meter strong{color:var(--rail-ink);font-size:15px}
+.legend{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 12px}
+.legend button{background:#132824;border:1px solid #284840;color:var(--rail-muted);padding:6px 10px;font-size:13px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.legend button i{display:inline-grid;place-items:center;width:18px;height:18px;border-radius:50%;background:#284840;color:var(--rail-ink);font:500 11px var(--mono);font-style:normal}
+.legend button[aria-pressed="true"]{border-color:var(--mint);color:var(--rail-ink)}
+.legend button[aria-pressed="true"] i{background:var(--mint);color:#06150f}
+.explain{padding:0 12px 14px;font-size:15px;color:var(--rail-ink);min-height:3.2em}
+.quick{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:640px){.quick{grid-template-columns:minmax(0,1fr)}}
+.q{border-top:2px solid var(--leaf);padding-top:10px;display:grid;gap:4px}
+.q b{font-family:var(--display);font-size:18px;font-weight:500}
+.q span{color:var(--muted);font-size:15px}
+
+/* FIT CARDS */
+.fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media (max-width:700px){.fit{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);display:grid}
+.card > button{all:unset;cursor:pointer;display:grid;gap:8px;padding:20px}
+.card > button:focus-visible{outline:2px solid var(--leaf);outline-offset:-2px}
+.card .tag{font:500 12px var(--mono);color:var(--leaf);letter-spacing:.04em}
+.card h3{font-size:21px;font-weight:500}
+.card .one{color:var(--muted)}
+.card .more{padding:0 20px 20px;display:grid;gap:8px}
+.card .more li{margin-left:18px;color:var(--ink)}
+.card .more ul{margin:0;padding:0;display:grid;gap:6px}
+.card .hint{font-size:13px;color:var(--leaf);font-weight:600}
+.card[data-open="true"]{border-color:var(--leaf)}
+
+/* DROPS */
+.toy{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:start}
+@media (max-width:760px){.toy{grid-template-columns:minmax(0,1fr)}}
+.toy .box{background:var(--surface);border:1px solid var(--line);aspect-ratio:1/1;max-width:100%}
+.toy canvas{width:100%;height:100%;display:block}
+.ctrl{display:grid;gap:16px}
+.ctrl label{font-weight:600}
+input[type=range]{width:100%;accent-color:var(--water)}
+.readout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat{background:var(--surface);border:1px solid var(--line);padding:14px;display:grid;gap:2px}
+.stat .v{font:700 26px var(--display);color:var(--water);font-variant-numeric:tabular-nums}
+.stat .k{font-size:13px;color:var(--muted)}
+.formula{font:500 14px var(--mono);background:var(--water-soft);padding:10px 12px;justify-self:start}
+.why{display:grid;gap:10px;font-size:16px}
+.why b{font-weight:600}
+
+/* SOURCE */
+.srcgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:860px){.srcgrid{grid-template-columns:minmax(0,1fr)}}
+.sc{background:var(--surface);border:1px solid var(--line);display:grid;grid-template-rows:auto 1fr auto}
+.sc .top{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--line)}
+.sc .medium{font:500 12px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.seg{display:inline-flex;border:1px solid var(--line)}
+.seg button{background:none;border:0;padding:6px 10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.sc .body{padding:16px;display:grid;gap:10px;align-content:start}
+.sc h3{font-size:20px;font-weight:500}
+.sc .body p{color:var(--muted)}
+.sc .mine{padding:12px 16px;background:var(--leaf-soft);font-size:15px}
+.sc .mine b{font-weight:600}
+.sc[data-mode="fix"]{border-color:var(--leaf)}
+.sc[data-mode="problem"] .medium{color:var(--heat)}
+.sc[data-mode="fix"] .medium{color:var(--leaf)}
+.moral{font:300 clamp(20px,2.4vw,26px)/1.3 var(--display)}
+.moral b{font-weight:700;color:var(--leaf)}
+
+/* WORK */
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border:1px solid var(--line);background:var(--surface)}
+@media (max-width:700px){.flow{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.flow button{background:none;border:0;border-right:1px solid var(--line);padding:16px;text-align:left;cursor:pointer;display:grid;gap:4px;position:relative}
+.flow button:last-child{border-right:0}
+@media (max-width:700px){.flow button:nth-child(2){border-right:0}.flow button:nth-child(-n+2){border-bottom:1px solid var(--line)}}
+.flow .k{font:500 12px var(--mono);color:var(--muted)}
+.flow b{font:500 19px var(--display)}
+.flow button[aria-pressed="true"]{background:var(--leaf-soft)}
+.flow button[aria-pressed="true"] .k{color:var(--leaf)}
+.stage{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:700px){.stage{grid-template-columns:minmax(0,1fr)}}
+.stage .ex{display:grid;gap:10px}
+.stage .ex h3{font-size:22px;font-weight:500}
+.stage .ex p{color:var(--muted)}
+.principle{background:var(--rail);color:var(--rail-ink);padding:20px;display:grid;gap:8px}
+.principle .eyebrow{color:var(--mint)}
+.principle p{font:300 20px/1.35 var(--display)}
+.principle .rulesrc{font:500 12px/1.4 var(--mono);color:var(--rail-muted)}
+
+/* ABOUT */
+.road{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:700px){.road{grid-template-columns:minmax(0,1fr)}}
+.road div{border-top:2px solid var(--line);padding-top:10px;display:grid;gap:2px}
+.road .air{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase}
+.road .bad{color:var(--soot)} .road .good{color:var(--leaf)}
+.road b{font:500 18px var(--display)}
+.nums{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+@media (max-width:700px){.nums{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.num{display:grid;gap:4px;border-top:2px solid var(--ink);padding-top:10px}
+.num .v{font:700 clamp(26px,3.4vw,38px) var(--display);font-variant-numeric:tabular-nums}
+.num .k{color:var(--muted);font-size:14px}
+
+/* VALUES */
+.values{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+.val{background:var(--surface);border:1px solid var(--line);padding:16px;display:grid;gap:6px;align-content:start}
+.val h3{font-size:17px;font-weight:700;color:var(--leaf)}
+.val p{font-size:15px;color:var(--muted)}
+
+/* SOURCES / CONTACT */
+.refs{margin:0;padding-left:20px;display:grid;gap:10px;max-width:72ch}
+.refs li{color:var(--muted)}
+.refs a{color:var(--leaf)}
+.contact{background:var(--rail);color:var(--rail-ink);padding:28px;display:grid;gap:16px}
+.contact h2{font-weight:300}
+.contact .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.contact .mailbig{font:500 16px var(--mono);background:#14302a;padding:12px 14px;user-select:all;word-break:break-all}
+.btn{background:#2fa36b;color:#04140c;border:0;padding:12px 16px;font-weight:600;cursor:pointer;text-decoration:none}
+.fine{font-size:13px;color:var(--muted);max-width:72ch}
+
+/* PHONE: rail becomes a top bar with scrollable chips */
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .rail{position:sticky;top:env(safe-area-inset-top,0px);height:auto;z-index:15;padding:12px max(16px,env(safe-area-inset-right,0px)) 10px max(16px,env(safe-area-inset-left,0px));gap:10px;overflow:visible}
+  .me{grid-template-columns:minmax(0,1fr) auto;align-items:center}
+  .me .role,.me .for,.railfoot{display:none}
+  .me .name{font-size:18px}
+  .me .mob{display:inline-flex!important}
+  .toc{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-inline:-4px;padding-inline:4px}
+  .toc button{grid-template-columns:auto;white-space:nowrap;border-left:0;border-bottom:2px solid transparent;padding:6px 10px;font-size:14px}
+  .toc button .n{display:none}
+  .toc button[aria-current="true"]{border-bottom-color:var(--mint);background:none}
+  main{padding-block:24px 32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+}
+.me .mob{display:none}
+.toc .short{display:none}
+h3.sub{font-size:20px;font-weight:500;margin-top:8px}
+.srcs{border-top:1px solid var(--line);padding-top:14px}
+.srcs summary{cursor:pointer;font-weight:600;color:var(--leaf)}
+.srcs .refs{margin-top:12px}
+.sec{min-height:min(640px,70vh);align-content:start}
+@media (max-width:900px){
+  .app{grid-template-rows:auto 1fr}
+  .rail{align-self:start}
+  .toc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;overflow:visible;margin:0;padding:0}
+  .toc button{justify-content:center;text-align:center;padding:8px 4px;background:#132824;border:1px solid #23413a;border-bottom-width:2px;font-size:13px}
+  .toc button[aria-current="true"]{background:#1a3530;border-color:#23413a;border-bottom-color:var(--mint)}
+  .toc .full{display:none}
+  .toc .short{display:inline}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="app">
+  <aside class="rail">
+    <div class="me">
+      <div>
+        <div class="name">Ghanashyam Mandal</div>
+        <div class="role">B.Tech Chemical Engineering, IIT Madras · CH23B015</div>
+        <div class="for">Application · Environmental Engineer</div>
+      </div>
+      <a class="chip mob" href="#about" data-go="about">Contact</a>
+    </div>
+    <nav class="toc" id="toc" aria-label="Contents"></nav>
+    <div class="railfoot">
+      <span class="mail" id="railMail">ch23b015@smail.iitm.ac.in</span>
+      <div class="row">
+        <button class="chip" id="copy1">Copy email</button>
+        <a class="chip" href="https://www.linkedin.com/in/ghanashyammandal07" target="_blank" rel="noopener">LinkedIn ↗</a>
+      </div>
+      <span class="copied" id="ok1"></span>
+    </div>
+  </aside>
+
+  <main id="main">
+    <!-- 1 OVERVIEW -->
+    <section class="sec" id="s-overview" data-title="In 30 seconds" data-short="Overview">
+      <header>
+        <span class="eyebrow">In 30 seconds</span>
+        <h1>I want to help industry run <b>with cleaner air.</b></h1>
+        <p class="lede">I'm a final-year chemical engineer at IIT Madras. My research is on carbon capture. Below is the kind of plant I want to work on. Tap the parts to see what each one does.</p>
+      </header>
+      <div class="plant">
+        <canvas id="plant" width="1000" height="600" aria-label="Animated amine carbon capture plant: flue gas, absorber, heat exchanger, stripper with reboiler, and CO2 sent to storage"></canvas>
+        <div class="bar">
+          <button class="switch" id="cap" aria-pressed="true"><span class="dot"></span><span id="capTxt">Capture running</span></button>
+          <span class="meter">CO2 caught <strong id="pct">0%</strong> · simplified model</span>
+        </div>
+        <div class="legend" id="legend"></div>
+        <p class="explain" id="explain">Tap a number to see what that part does.</p>
+      </div>
+      <div class="quick">
+        <div class="q"><b>Carbon capture research</b><span>Making an amine solvent absorb CO2 faster.</span></div>
+        <div class="q"><b>Pollution at the source</b><span>Air, land and water projects from my coursework.</span></div>
+        <div class="q"><b>Work others can build on</b><span>Repeatable tools, clear handover.</span></div>
+      </div>
+    </section>
+
+    <!-- 2 FIT -->
+    <section class="sec" id="s-fit" data-title="Why I fit" data-short="Why me" hidden>
+      <header>
+        <span class="eyebrow">Why I fit</span>
+        <h2>Four things I bring to an environmental role.</h2>
+        <p class="lede">Tap any card for the details.</p>
+      </header>
+      <div class="fit" id="fit"></div>
+      <h3 class="sub">Where your values show up in my work</h3>
+      <div class="values">
+        <div class="val"><h3>Integrity</h3><p>Every claim here is from my own work, and the science is sourced.</p></div>
+        <div class="val"><h3>Excellence</h3><p>Gas-solubility data to ±0.1°C, with error kept under 3.3%.</p></div>
+        <div class="val"><h3>Care</h3><p>Udaan at E-Cell: worked with MSMEs, rural startups and self-help groups.</p></div>
+        <div class="val"><h3>Courage</h3><p>A chemical engineer who took on marketing and PR, and grew to Manager.</p></div>
+        <div class="val"><h3>Resilience</h3><p>Navodaya schools in two states, far from home, then IIT Madras.</p></div>
+      </div>
+    </section>
+
+    <!-- 3 SCIENCE -->
+    <section class="sec" id="s-science" data-title="The science" data-short="Science" hidden>
+      <header>
+        <span class="eyebrow">My research, simply</span>
+        <h2>Smaller drops, more surface, faster transfer.</h2>
+        <p class="lede">MDEA is an amine that can hold a lot of CO2, but it reacts slowly. I'm testing a Pickering emulsion: tiny drops of the amine solution, held steady by nanoparticles, so CO2 has far more surface to cross. Drag the slider.</p>
+      </header>
+      <div class="toy">
+        <div class="box"><canvas id="drops" width="560" height="560" aria-label="Grid of circles showing the same liquid split into drops of the chosen size"></canvas></div>
+        <div class="ctrl">
+          <label for="d">Drop size: <span id="dTxt"></span></label>
+          <input type="range" id="d" min="0" max="100" value="40">
+          <div class="readout">
+            <div class="stat"><span class="v" id="area">0</span><span class="k">m² of drop surface per litre</span></div>
+            <div class="stat"><span class="v" id="gain">1×</span><span class="k">vs. 2 mm drops</span></div>
+          </div>
+          <span class="formula">surface per volume = 6 × φ ÷ d &nbsp;(drop fraction φ = 0.3)</span>
+          <div class="why">
+            <p><b>Why it matters:</b> absorption speed scales with the surface where gas and liquid meet. More surface attacks MDEA's weak point, its speed.</p>
+            <p><b>What I still check:</b> whether the gain survives real plant costs, like extra pumping for a thicker liquid.</p>
+          </div>
+          <p class="src-note">Formula: Quadros &amp; Baptista, Chem. Eng. Sci. 2003. Full list below.</p>
+        </div>
+      </div>
+      <details class="srcs" id="srcs"><summary>Sources for the science on this page</summary><div id="refsSlot"></div></details>
+    </section>
+
+    <!-- 4 SOURCE -->
+    <section class="sec" id="s-source" data-title="Fix at the source" data-short="At source" hidden>
+      <header>
+        <span class="eyebrow">Air · Land · Water</span>
+        <h2>Stop pollution where it starts.</h2>
+        <p class="lede">Pollution moves: smoke becomes acid rain, waste ends up in soil and rivers. The cheapest place to stop it is at the source. Each card shows one problem, the engineering fix, and what I did on it. Switch between <b>Problem</b> and <b>Fix</b>.</p>
+      </header>
+      <div class="srcgrid" id="srcgrid"></div>
+      <p class="moral">Three different problems. <b>One habit: fix it where it begins.</b></p>
+    </section>
+
+    <!-- 5 WORK -->
+    <section class="sec" id="s-work" data-title="How I work" data-short="How I work" hidden>
+      <header>
+        <span class="eyebrow">How I work</span>
+        <h2>Diagnose, design, test early, make it last.</h2>
+        <p class="lede">Tap each step to see where I've done it.</p>
+      </header>
+      <div class="flow" id="flow"></div>
+      <div class="stage">
+        <div class="ex" id="stage" aria-live="polite"></div>
+        <div class="principle">
+          <span class="eyebrow">The rule I follow</span>
+          <p>Plan, do, check, act. Then repeat.</p>
+          <span class="rulesrc">The PDCA cycle, the basis of the ISO 14001 environmental management standard</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 ABOUT -->
+    <section class="sec" id="s-about" data-title="About &amp; contact" data-short="About" hidden>
+      <header>
+        <span class="eyebrow">About me</span>
+        <h2>Where the interest comes from.</h2>
+      </header>
+      <div class="road">
+        <div><span class="air bad">Industrial air</span><b>Near NALCO, Odisha</b><span class="src-note">Grew up near an alumina refinery.</span></div>
+        <div><span class="air good">Clean air</span><b>Navodaya, Koraput</b><span class="src-note">School in the hills by the Kolab reservoir.</span></div>
+        <div><span class="air good">Green inside, busy outside</span><b>IIT Madras</b><span class="src-note">A forest campus in a busy city.</span></div>
+      </div>
+      <p class="lede">Seeing both kinds of air is why I chose this work.</p>
+      <div class="nums">
+        <div class="num"><span class="v">89.7%</span><span class="k">lignin recovered from corn stover</span></div>
+        <div class="num"><span class="v">5–55°C</span><span class="k">stress-test range, 6 formulations at L'Oréal</span></div>
+        <div class="num"><span class="v">&lt;1%</span><span class="k">selection rate, Dakshana Scholars Program</span></div>
+        <div class="num"><span class="v">2,000+</span><span class="k">people at E-Cell events I hosted</span></div>
+      </div>
+    </section>
+
+    <!-- SOURCES (moved into The science) -->
+    <template id="refsTpl">
+      <ol class="refs">
+        <li>Specific interfacial area a = 6φ/d<sub>32</sub>: Quadros &amp; Baptista, "Effective interfacial area in agitated liquid–liquid continuous reactors", <i>Chemical Engineering Science</i>, 2003. <a href="https://estudogeral.sib.uc.pt/bitstream/10316/7411/1/Quadros%20and%20Baptista%202003%20-%20Effective%20interfacial%20area.pdf" target="_blank" rel="noopener">PDF ↗</a></li>
+        <li>Tertiary amines (MDEA) have high equilibrium CO2 capacity but react slowly; primary amines react much faster: Bryan Research &amp; Engineering, "The Use of MDEA and Mixtures of Amines for Bulk CO2 Removal". <a href="https://www.bre.com/PDF/The-Use-of-MDEA-and-Mixtures-of-Amines-for-Bulk-CO2-Removal.pdf" target="_blank" rel="noopener">PDF ↗</a></li>
+        <li>MDEA emulsions for CO2 capture, using higher interfacial area and effective diffusivity: "Pickering Emulsions and Phase Change Slurries for Renewable Technologies", University of Toronto thesis. <a href="https://utoronto.scholaris.ca/server/api/core/bitstreams/0dec98c2-f324-4a09-9c87-aa0263346672/content" target="_blank" rel="noopener">Link ↗</a></li>
+        <li>Double absorption reaches 99.7% SO2 conversion or more, vs. about 95–98% for single absorption: US EPA AP-42, Section 8.10 Sulfuric Acid. <a href="https://www.epa.gov/sites/production/files/2020-09/documents/8.10_sulfuric_acid.pdf" target="_blank" rel="noopener">PDF ↗</a></li>
+        <li>Plan-Do-Check-Act (PDCA) as the basis of ISO 14001 environmental management systems: ISO 14001:2015, Introduction (summarised by the Swiss Federal SME Portal). <a href="https://www.kmu.admin.ch/kmu/en/home/savoir-pratique/gestion-pme/certification-et-normalisation/normalisation/le-management-de-la-qualite/management-environnemental-iso-14001.html" target="_blank" rel="noopener">Link ↗</a></li>
+        <li>The plant model follows the standard amine capture loop (absorber, rich/lean heat exchanger, stripper with reboiler). It is simplified and not to scale.</li>
+      </ol>
+    </template>
+
+    <section class="sec" id="s-contactblock" hidden>
+      <div class="contact">
+        <span class="eyebrow" style="color:var(--mint)">Contact</span>
+        <h2>If carbon capture and cleaner plants are the work, I'd love to be part of it.</h2>
+        <div class="row">
+          <span class="mailbig" id="mailBig">ch23b015@smail.iitm.ac.in</span>
+          <button class="btn" id="copy2">Copy email</button>
+          <a class="chip" href="https://www.linkedin.com/in/ghanashyammandal07" target="_blank" rel="noopener">LinkedIn ↗</a>
+          <span class="copied" id="ok2"></span>
+        </div>
+      </div>
+      <p class="fine">A personal portfolio made for my application. Not affiliated with or endorsed by ExxonMobil.</p>
+    </section>
+
+    <nav class="pager" aria-label="Section navigation">
+      <button id="prev">← <span id="prevT">Back</span></button>
+      <button class="next" id="next"><span id="nextT">Next</span> →</button>
+    </nav>
+  </main>
+</div>
+
+<script>
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s);
+
+/* ---------- NAVIGATION ---------- */
+// fold sources into The science, and contact into About
+$('#refsSlot').append($('#refsTpl').content.cloneNode(true));
+(() => { const cb = $('#s-contactblock'); while (cb.firstChild) $('#s-about').append(cb.firstChild); cb.remove(); })();
+const SECS = ['overview','fit','science','source','work','about'];
+$('#toc').innerHTML = SECS.map((k,i) => { const s = document.getElementById('s-'+k); return `<button data-go="${k}" id="nav-${k}"><span class="n">${String(i+1).padStart(2,'0')}</span><span class="full">${s.dataset.title}</span><span class="short">${s.dataset.short || s.dataset.title}</span></button>`; }).join('');
+let cur = 0;
+function go(k, push){
+  const i = Math.max(0, SECS.indexOf(k)); cur = i;
+  SECS.forEach((s,j) => { document.getElementById('s-'+s).hidden = j !== i; document.getElementById('nav-'+s).setAttribute('aria-current', j === i); });
+  $('#prev').style.visibility = i === 0 ? 'hidden' : 'visible';
+  $('#next').style.visibility = i === SECS.length-1 ? 'hidden' : 'visible';
+  if (i > 0) $('#prevT').textContent = document.getElementById('s-'+SECS[i-1]).dataset.title;
+  if (i < SECS.length-1) $('#nextT').textContent = document.getElementById('s-'+SECS[i+1]).dataset.title;
+  document.getElementById('nav-'+k)?.scrollIntoView({block:'nearest', inline:'nearest'});
+  if (push) { try { history.replaceState(null, '', '#'+k); } catch(e){} window.scrollTo({top:0}); }
+}
+document.addEventListener('click', e => { const b = e.target.closest('[data-go]'); if (b){ e.preventDefault(); go(b.dataset.go, true); } });
+$('#prev').onclick = () => go(SECS[cur-1], true);
+$('#next').onclick = () => go(SECS[cur+1], true);
+const h0 = location.hash.slice(1); go(SECS.includes(h0) ? h0 : 'overview');
+
+/* ---------- COPY ---------- */
+function copyMail(okId, spanId){
+  const m = 'ch23b015@smail.iitm.ac.in';
+  navigator.clipboard.writeText(m).then(() => $(okId).textContent = 'Copied')
+  .catch(() => { const r = document.createRange(); r.selectNodeContents($(spanId)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); $(okId).textContent = 'Selected. Press Ctrl+C.'; });
+}
+$('#copy1').onclick = () => copyMail('#ok1', '#railMail');
+$('#copy2').onclick = () => copyMail('#ok2', '#mailBig');
+
+/* ---------- PLANT ---------- */
+(() => {
+  const cv = $('#plant'), g = cv.getContext('2d'), W = 1000, H = 600;
+  const GROUND = 540;
+  const PATHS = {
+    flue: [[175,478],[300,478]],
+    rich: [[335,522],[335,560],[470,560],[470,348],[600,348],[600,170],[640,170]],
+    lean: [[700,500],[760,500],[760,312],[420,312],[420,150],[370,150]],
+    co2:  [[675,140],[675,88],[900,88],[900,470]],
+    treated: [[335,120],[335,40]]
+  };
+  const ABS = {x0:300,x1:370,y0:120,y1:522}, STR = {x0:640,x1:710,y0:140,y1:470}, HX = {x0:480,x1:540,y0:296,y1:364};
+  const PARTS = [
+    {n:1, name:'Flue gas in', text:'Exhaust from a plant is cooled and blown into the bottom of the absorber. It carries CO2.'},
+    {n:2, name:'Absorber', text:'Gas rises while amine solvent rains down. CO2 moves from the gas into the liquid. Cleaned gas leaves from the top.'},
+    {n:3, name:'Rich solvent', text:'Solvent now loaded with CO2 is pumped away to be cleaned and reused.'},
+    {n:4, name:'Heat exchanger', text:'Hot clean solvent warms the cold loaded solvent, saving energy.'},
+    {n:5, name:'Stripper + reboiler', text:'Heat from the reboiler releases the CO2. The solvent is clean again and goes back to the absorber.'},
+    {n:6, name:'CO2 to storage', text:'Pure CO2 is cooled, compressed and sent deep underground for storage.'}
+  ];
+  let on = true, caught = 0, passed = 0, t = 0, haze = 0, hi = 0, dash = 0;
+  const gas = [], carriers = [], co2 = [], out = [];
+  function seg(path){ let L = 0; const s = []; for (let i = 1; i < path.length; i++){ const d = Math.hypot(path[i][0]-path[i-1][0], path[i][1]-path[i-1][1]); s.push(d); L += d; } return {s, L}; }
+  const LEN = {}; for (const k in PATHS) LEN[k] = seg(PATHS[k]);
+  function at(k, d){ const p = PATHS[k], S = LEN[k].s; for (let i = 0; i < S.length; i++){ if (d <= S[i]){ const f = d/S[i]; return [p[i][0] + (p[i+1][0]-p[i][0])*f, p[i][1] + (p[i+1][1]-p[i][1])*f]; } d -= S[i]; } return p[p.length-1]; }
+  const rise = 2.4, frames = (ABS.y1 - ABS.y0 - 20)/rise, pCap = 1 - Math.pow(0.1, 1/frames);
+  function step(){
+    t++; dash += on ? 1.2 : 0;
+    if (t % 5 === 0) gas.push({d:0, phase:'duct', x:0, y:0, w:Math.random()*6.28});
+    for (const p of gas){
+      if (p.phase === 'duct'){ p.d += 2.2; const q = at('flue', p.d); p.x = q[0]; p.y = q[1] + Math.sin(p.w + t/8)*3; if (p.d >= LEN.flue.L){ p.phase = 'abs'; p.x = ABS.x0 + 12 + Math.random()*(ABS.x1-ABS.x0-24); p.y = ABS.y1 - 12; } }
+      else if (p.phase === 'abs'){ p.y -= rise; p.x += Math.sin(p.w + t/9)*.5;
+        if (on && Math.random() < pCap){ p.dead = 1; caught++; carriers.push({x:p.x, y:p.y, phase:'fall', d:0}); }
+        else if (p.y <= ABS.y0 + 4){ p.dead = 1; passed++; out.push({d:0, a:1, x:335, y:120, vx:.8+Math.random()*.6, vy:-1-Math.random()*.6}); } }
+    }
+    for (const c of carriers){
+      if (c.phase === 'fall'){ c.y += 2.6; if (c.y >= ABS.y1 - 4){ c.phase = 'rich'; c.d = 0; } }
+      else if (c.phase === 'rich'){ c.d += 3; const q = at('rich', c.d); c.x = q[0]; c.y = q[1]; if (c.d >= LEN.rich.L){ c.phase = 'str'; c.x = STR.x0 + 12 + Math.random()*(STR.x1-STR.x0-24); c.y = STR.y0 + 10; } }
+      else if (c.phase === 'str'){ c.y += 2.6; if (c.y >= STR.y1 - 30 - Math.random()*120){ c.dead = 1; co2.push({phase:'up', x:c.x, y:c.y, d:0}); } }
+    }
+    for (const c of co2){
+      if (c.phase === 'up'){ c.y -= 2.4; if (c.y <= STR.y0 + 2){ c.phase = 'pipe'; c.d = 0; } }
+      else { c.d += 3; const q = at('co2', c.d); c.x = q[0]; c.y = q[1]; if (c.d >= LEN.co2.L) c.dead = 1; }
+    }
+    for (const o of out){ o.x += o.vx; o.y += o.vy; o.a -= .007; if (o.a <= 0 || o.y < -10) o.dead = 1; }
+    for (const arr of [gas, carriers, co2, out]) for (let i = arr.length-1; i >= 0; i--) if (arr[i].dead) arr.splice(i,1);
+    haze += ((on ? 0 : 1) - haze) * .01;
+  }
+  const C = {pipe:'#23443d', shell:'#16302b', edge:'#3b6a60', lean:'#6cb0ea', rich:'#a58ae6', co2:'#7fe0ad', flue:'#9a9fa2', heat:'#eda35a', label:'rgba(232,241,237,.75)'};
+  function pipe(k, color, w){
+    const p = PATHS[k];
+    g.lineCap = 'round'; g.lineJoin = 'round';
+    g.strokeStyle = C.pipe; g.lineWidth = w + 6; g.setLineDash([]); g.beginPath(); p.forEach((q,i) => i ? g.lineTo(q[0],q[1]) : g.moveTo(q[0],q[1])); g.stroke();
+    g.strokeStyle = color; g.lineWidth = w; g.setLineDash([10,12]); g.lineDashOffset = -dash; g.beginPath(); p.forEach((q,i) => i ? g.lineTo(q[0],q[1]) : g.moveTo(q[0],q[1])); g.stroke(); g.setLineDash([]);
+  }
+  function glow(fn){ g.save(); g.shadowColor = '#7fe0ad'; g.shadowBlur = 18; g.strokeStyle = '#7fe0ad'; g.lineWidth = 3; fn(); g.restore(); }
+  function marker(n, x, y){
+    g.fillStyle = hi === n ? '#7fe0ad' : '#284840'; g.beginPath(); g.arc(x, y, 17, 0, 7); g.fill();
+    g.fillStyle = hi === n ? '#06150f' : '#e8f1ed'; g.font = '600 18px "IBM Plex Mono", monospace'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(n, x, y + 1);
+  }
+  function draw(){
+    const sky = g.createLinearGradient(0,0,0,H);
+    sky.addColorStop(0, `rgb(${16+haze*60},${36+haze*40},${32+haze*28})`); sky.addColorStop(1, '#0c1a18');
+    g.fillStyle = sky; g.fillRect(0,0,W,H);
+    // ground + storage strata
+    g.fillStyle = '#0a1513'; g.fillRect(0, GROUND, W, H-GROUND);
+    g.fillStyle = '#0f201c'; g.fillRect(860, GROUND+18, 140, 14); g.fillRect(860, GROUND+44, 140, 10);
+    // trees
+    for (let i = 0; i < 4; i++){ const x = 790 + i*0 + (i%2)*30 + Math.floor(i/2)*0, X = 770 + i*24, h = 46 + (i%2)*16;
+      g.fillStyle = `rgb(${40+haze*50},${Math.round(70+(1-haze)*95)},${70-haze*10})`; g.beginPath(); g.moveTo(X, GROUND-h); g.lineTo(X-13, GROUND); g.lineTo(X+13, GROUND); g.fill(); }
+    // plant
+    g.fillStyle = '#1d3631'; g.fillRect(28, 400, 147, GROUND-400);
+    g.fillStyle = '#244540'; g.fillRect(52, 270, 24, 130);
+    g.fillStyle = '#2d5149'; for (let i = 0; i < 4; i++) g.fillRect(90 + i*20, 420, 12, 16);
+    // cooler/blower box on flue
+    pipe('flue', C.flue, 12);
+    g.fillStyle = '#1f3d37'; g.fillRect(205, 456, 50, 44); g.strokeStyle = C.edge; g.lineWidth = 2; g.strokeRect(205, 456, 50, 44);
+    // lean + rich lines (behind columns)
+    if (on){ pipe('lean', C.lean, 6); pipe('rich', C.rich, 6); } else { pipe('lean', '#2a4a43', 6); pipe('rich', '#2a4a43', 6); }
+    pipe('co2', on ? C.co2 : '#2a4a43', 7);
+    // pump on rich line
+    g.fillStyle = '#1f3d37'; g.beginPath(); g.arc(470, 560, 13, 0, 7); g.fill(); g.strokeStyle = C.edge; g.lineWidth = 2; g.stroke();
+    // treated gas stub
+    g.fillStyle = '#244540'; g.fillRect(325, 60, 20, 62);
+    // absorber
+    g.fillStyle = C.shell; g.strokeStyle = C.edge; g.lineWidth = 2;
+    g.beginPath(); g.roundRect ? g.roundRect(ABS.x0, ABS.y0, ABS.x1-ABS.x0, ABS.y1-ABS.y0, 16) : g.rect(ABS.x0, ABS.y0, ABS.x1-ABS.x0, ABS.y1-ABS.y0); g.fill(); g.stroke();
+    g.strokeStyle = 'rgba(127,224,173,.08)'; g.lineWidth = 1; for (let y = ABS.y0+24; y < ABS.y1-8; y += 24){ g.beginPath(); g.moveTo(ABS.x0+6,y); g.lineTo(ABS.x1-6,y); g.stroke(); }
+    if (on){ g.fillStyle = 'rgba(108,176,234,.7)'; for (let i = 0; i < 18; i++){ const y = ABS.y0 + ((t*2.2 + i*37) % (ABS.y1-ABS.y0-10)); const x = ABS.x0 + 10 + ((i*29) % (ABS.x1-ABS.x0-20)); g.beginPath(); g.arc(x, y+6, 2.4, 0, 7); g.fill(); } }
+    // heat exchanger
+    g.fillStyle = '#1f3d37'; g.fillRect(HX.x0, HX.y0, HX.x1-HX.x0, HX.y1-HX.y0); g.strokeStyle = C.edge; g.lineWidth = 2; g.strokeRect(HX.x0, HX.y0, HX.x1-HX.x0, HX.y1-HX.y0);
+    g.strokeStyle = 'rgba(232,241,237,.25)'; g.beginPath(); g.moveTo(HX.x0+8, HX.y0+8); g.lineTo(HX.x1-8, HX.y1-8); g.moveTo(HX.x1-8, HX.y0+8); g.lineTo(HX.x0+8, HX.y1-8); g.stroke();
+    // stripper + reboiler
+    g.fillStyle = C.shell; g.strokeStyle = C.edge; g.lineWidth = 2;
+    g.beginPath(); g.roundRect ? g.roundRect(STR.x0, STR.y0, STR.x1-STR.x0, STR.y1-STR.y0, 16) : g.rect(STR.x0, STR.y0, STR.x1-STR.x0, STR.y1-STR.y0); g.fill(); g.stroke();
+    g.fillStyle = on ? `rgba(237,163,90,${.55 + .25*Math.sin(t/10)})` : '#2a3a36'; g.fillRect(STR.x0+8, STR.y1+4, STR.x1-STR.x0-16, 46);
+    // storage well
+    g.fillStyle = '#1f3d37'; g.fillRect(888, 470, 24, GROUND-470);
+    g.strokeStyle = on ? C.co2 : '#2a4a43'; g.lineWidth = 3; g.setLineDash([4,6]); g.beginPath(); g.moveTo(900, GROUND); g.lineTo(900, H-6); g.stroke(); g.setLineDash([]);
+    // highlights
+    if (hi === 1) glow(() => { g.strokeRect(170, 446, 135, 64); });
+    if (hi === 2) glow(() => { g.strokeRect(ABS.x0-6, 54, ABS.x1-ABS.x0+12, ABS.y1-48); });
+    if (hi === 3) glow(() => { g.beginPath(); PATHS.rich.forEach((q,i) => i ? g.lineTo(q[0],q[1]) : g.moveTo(q[0],q[1])); g.stroke(); });
+    if (hi === 4) glow(() => { g.strokeRect(HX.x0-6, HX.y0-6, HX.x1-HX.x0+12, HX.y1-HX.y0+12); });
+    if (hi === 5) glow(() => { g.strokeRect(STR.x0-6, STR.y0-6, STR.x1-STR.x0+12, STR.y1-STR.y0+64); });
+    if (hi === 6) glow(() => { g.beginPath(); PATHS.co2.forEach((q,i) => i ? g.lineTo(q[0],q[1]) : g.moveTo(q[0],q[1])); g.lineTo(900, H-6); g.stroke(); });
+    // particles
+    for (const p of gas){ g.fillStyle = '#a3a8ab'; g.beginPath(); g.arc(p.x, p.y, 4, 0, 7); g.fill(); }
+    for (const c of carriers){ g.fillStyle = C.rich; g.beginPath(); g.arc(c.x, c.y, 4, 0, 7); g.fill(); }
+    for (const c of co2){ g.fillStyle = C.co2; g.beginPath(); g.arc(c.x, c.y, 4, 0, 7); g.fill(); }
+    for (const o of out){ g.fillStyle = on ? `rgba(210,245,226,${o.a*.45})` : `rgba(163,168,171,${o.a})`; g.beginPath(); g.arc(o.x, o.y, on ? 3 : 5, 0, 7); g.fill(); }
+    if (haze > .02){ g.fillStyle = `rgba(120,118,110,${haze*.22})`; g.fillRect(0, 0, W, GROUND); }
+    // markers (flow order)
+    marker(1, 230, 430); marker(2, 335, 330); marker(3, 400, 585 - 0); marker(4, 510, 268); marker(5, 675, 300); marker(6, 840, 60);
+    const tot = caught + passed; $('#pct').textContent = tot ? Math.round(caught*100/tot) + '%' : '0%';
+  }
+  function loop(){ step(); draw(); requestAnimationFrame(loop); }
+  for (let i = 0; i < 520; i++) step();
+  if (reduce) draw(); else loop();
+  // legend
+  $('#legend').innerHTML = PARTS.map(p => `<button aria-pressed="false" data-n="${p.n}"><i>${p.n}</i>${p.name}</button>`).join('');
+  $('#legend').querySelectorAll('button').forEach(b => b.onclick = () => {
+    const n = +b.dataset.n; hi = hi === n ? 0 : n;
+    $('#legend').querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', +x.dataset.n === hi));
+    $('#explain').textContent = hi ? PARTS[n-1].text : 'Tap a number to see what that part does.';
+    if (reduce) draw();
+  });
+  const sw = $('#cap');
+  sw.onclick = () => { on = !on; caught = 0; passed = 0; sw.setAttribute('aria-pressed', on); $('#capTxt').textContent = on ? 'Capture running' : 'Capture off'; if (reduce){ for (let i = 0; i < 520; i++) step(); draw(); } };
+})();
+
+/* ---------- FIT CARDS ---------- */
+(() => {
+  const F = [
+    {tag:'MDEA · mass transfer · emulsions', h:'I already work on carbon capture.', one:'Researching how to make an amine solvent absorb CO2 faster.',
+     more:['Found the step that limits speed: the contact surface between phases','Building nanoparticle-stabilised (Pickering) emulsions to raise it','Checking the gain against pumping and cost at plant scale']},
+    {tag:'SO2 · biomass · plastics', h:'I look for fixes at the source.', one:'Coursework across air, land and water pollution.',
+     more:['Contact Process study: double absorption to cut SO2 emissions','Recovered 89.7% of lignin from corn stover','Course on sustainable plastics and recycling']},
+    {tag:'rheology · PLS regression', h:'I catch failures early.', one:'At L’Oréal I built an early-warning signal for unstable products.',
+     more:['Stress-tested 6 formulations from 5°C to 55°C','Found how and why they broke down','Linked lab data to human sensory scores with PLS regression']},
+    {tag:'E-Cell · Udaan', h:'I explain clearly.', one:'Two years in E-Cell marketing and PR, Associate to Manager.',
+     more:['Hosted events for 2,000+ people','Coordinated 5+ teams per event','Worked with MSMEs, rural startups and self-help groups']}
+  ];
+  $('#fit').innerHTML = F.map((f,i) => `<div class="card" data-open="false" id="card-${i}"><button aria-expanded="false"><span class="tag">${f.tag}</span><h3>${f.h}</h3><p class="one">${f.one}</p><span class="hint">Show details +</span></button><div class="more" hidden><ul>${f.more.map(m => `<li>${m}</li>`).join('')}</ul></div></div>`).join('');
+  document.querySelectorAll('.card').forEach(c => { const b = c.querySelector('button'), m = c.querySelector('.more'), hint = c.querySelector('.hint');
+    b.onclick = () => { const o = m.hidden; m.hidden = !o; c.dataset.open = o; b.setAttribute('aria-expanded', o); hint.textContent = o ? 'Hide details −' : 'Show details +'; }; });
+})();
+
+/* ---------- DROPS ---------- */
+(() => {
+  const cv = $('#drops'), g = cv.getContext('2d'), S = cv.width, r = $('#d');
+  const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  const dia = v => 2e-3 * Math.pow(10, -v/100 * 2); // 2 mm → 20 µm
+  const fmt = d => d >= 1e-3 ? (d*1e3).toFixed(1) + ' mm' : Math.round(d*1e6) + ' µm';
+  function render(){
+    const d = dia(+r.value), phi = .3, a = 6*phi/d; // m²/m³ ; per litre = a/1000
+    $('#dTxt').textContent = fmt(d);
+    const perL = a/1000;
+    $('#area').textContent = perL < 10 ? perL.toFixed(1) : Math.round(perL).toLocaleString();
+    $('#gain').textContent = Math.round(2e-3/d).toLocaleString() + '×';
+    g.fillStyle = css('--surface'); g.fillRect(0,0,S,S);
+    const n = Math.min(64, Math.max(2, Math.round(2 * 2e-3/d / 1.6)));
+    const rad = S/(n*2) * .8;
+    g.fillStyle = css('--water'); g.globalAlpha = .85;
+    for (let i = 0; i < n; i++) for (let j = 0; j < n; j++){ g.beginPath(); g.arc((i+.5)*S/n, (j+.5)*S/n, Math.max(1.2, rad), 0, 7); g.fill(); }
+    g.globalAlpha = 1;
+  }
+  r.oninput = render; render();
+  try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', render); } catch(e){}
+})();
+
+/* ---------- SOURCE CARDS ---------- */
+(() => {
+  const S = [
+    {m:'Air', problem:['SO2 from acid plants','Sulfuric acid plants can release sulfur dioxide. In the air it turns into acid rain.'],
+     fix:['Double absorption','A second absorption step catches leftover SO2. Conversion rises from about 95–98% to 99.7% or more (US EPA).'],
+     mine:'Course project analysing the industrial Contact Process (CH3010).'},
+    {m:'Land', problem:['Crop waste','Crop residue is often burned in open fields, polluting the air and wasting useful material.'],
+     fix:['Recover what is useful','Separate the residue into parts like lignin and cellulose that can become fuels and materials.'],
+     mine:'Recovered <b>89.7%</b> of lignin from corn stover, checked by FTIR and UV-Vis (CH5029).'},
+    {m:'Water', problem:['Plastic waste','Used plastic piles up and leaks into rivers and the sea.'],
+     fix:['Chemical recycling','Break used plastic back down into raw material for new plastic.'],
+     mine:'Course on Sustainable Plastics at IIT Madras.'}
+  ];
+  $('#srcgrid').innerHTML = S.map((s,i) => `<div class="sc" data-mode="problem" id="sc-${i}">
+    <div class="top"><span class="medium">${s.m}</span><span class="seg"><button aria-pressed="true" data-v="problem">Problem</button><button aria-pressed="false" data-v="fix">Fix</button></span></div>
+    <div class="body"><h3></h3><p></p></div>
+    <div class="mine"><b>What I did:</b> ${s.mine}</div></div>`).join('');
+  S.forEach((s,i) => {
+    const el = $('#sc-'+i);
+    function set(v){ el.dataset.mode = v; const d = v === 'fix' ? s.fix : s.problem; el.querySelector('h3').textContent = d[0]; el.querySelector('.body p').textContent = d[1];
+      el.querySelectorAll('.seg button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === v)); }
+    el.querySelectorAll('.seg button').forEach(b => b.onclick = () => set(b.dataset.v));
+    set('problem');
+  });
+})();
+
+/* ---------- HOW I WORK ---------- */
+(() => {
+  const W = [
+    {k:'Step 1', t:'Diagnose', h:'Find the real bottleneck first.', p:'In my CO2 research, I first worked out what actually limits absorption speed (the contact surface), then focused only on that.'},
+    {k:'Step 2', t:'Design', h:'Change the one thing that matters.', p:'I’m building nanoparticle-stabilised emulsions to raise that surface, tuning drop fraction for stability and flow.'},
+    {k:'Step 3', t:'Test early', h:'Break it in the lab, not in the field.', p:'At L’Oréal I stress-tested 6 formulations from 5°C to 55°C and built a signal that flags instability before it shows.'},
+    {k:'Step 4', t:'Make it last', h:'Build it to run every day.', p:'At L’Oréal I replaced a slow manual panel test with a repeatable data model the whole team can use, every time, the same way.'}
+  ];
+  $('#flow').innerHTML = W.map((w,i) => `<button aria-pressed="${i===0}" data-i="${i}"><span class="k">${w.k}</span><b>${w.t}</b></button>`).join('');
+  function show(i){ $('#flow').querySelectorAll('button').forEach((b,j) => b.setAttribute('aria-pressed', j===i)); $('#stage').innerHTML = `<h3>${W[i].h}</h3><p>${W[i].p}</p>`; }
+  $('#flow').querySelectorAll('button').forEach(b => b.onclick = () => show(+b.dataset.i));
+  show(0);
+})();
+</script>
